@@ -101,6 +101,7 @@
             "target.components_remove"                     : [ "SPM_MAILBOX" ],
             "target.features_remove"                       : [ "BLE" ],
             "target.macros_remove"                         : ["MBED_FAULT_HANDLER_DISABLED"],
+            "target.components_add"                        : ["SDIO"],
             "storage_filesystem.internal_base_address"     : "0x94000",
             "storage_filesystem.rbp_internal_size"         : "(15*1024)",
             "update-client.application-details"            : "(MBED_ROM_START + MBED_BOOTLOADER_SIZE)",
