@@ -89,8 +89,6 @@
             "update-client.storage-size"               : "((MBED_ROM_START + MBED_ROM_SIZE - MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS) * MBED_CONF_UPDATE_CLIENT_STORAGE_LOCATIONS)",
             "update-client.storage-locations"          : 1,
             "update-client.firmware-header-version"    : "2",
-            "target.components_add"                    : ["SD"],
-            "sd.CRC_ENABLED"                           : 0,
             "storage.storage_type"                     : "FILESYSTEM",
             "storage_filesystem.internal_base_address" : "(MBED_ROM_START + MBED_BOOTLOADER_SIZE)",
             "update-client.application-details"        : "(MBED_CONF_STORAGE_FILESYSTEM_INTERNAL_BASE_ADDRESS + MBED_CONF_STORAGE_FILESYSTEM_RBP_INTERNAL_SIZE)",
@@ -98,12 +96,13 @@
             "target.extra_labels_remove"               : [ "WICED", "CORDIO", "PSA", "MBED_SPM" ]
         },
         "LPC55S69_NS": {
-            "target.components_remove"                     : [ "SPM_MAILBOX" ],
-            "target.features_remove"                       : [ "BLE" ],
+            "target.components_remove"                     : [ "SPM_MAILBOX", "SD" ],
+            "target.features_remove"                       : [ "BLE", "PSA" ],
             "target.macros_remove"                         : ["MBED_FAULT_HANDLER_DISABLED"],
             "target.components_add"                        : ["SDIO"],
             "storage_filesystem.internal_base_address"     : "0x94000",
             "storage_filesystem.rbp_internal_size"         : "(15*1024)",
+            "storage_filesystem.blockdevice"               : "other",			
             "update-client.application-details"            : "(MBED_ROM_START + MBED_BOOTLOADER_SIZE)",
             "mbed-bootloader.default-max-application-size" : "(MBED_ROM_START + MBED_ROM_SIZE - MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS - MBED_CONF_STORAGE_FILESYSTEM_RBP_INTERNAL_SIZE)",
             "target.secure_image_filename"                 : null,
@@ -129,6 +128,8 @@
                                                              ]
         },
         "CY8CKIT_062_BLE": {
+            "target.components_add"                    : ["SD"],
+            "sd.CRC_ENABLED"                           : 0,
             "sd.SPI_MOSI"                                  : "P12_0",
             "sd.SPI_MISO"                                  : "P12_1",
             "sd.SPI_CLK"                                   : "P12_2",
@@ -165,6 +166,8 @@
                                                              ]
         },
         "CY8CKIT_062_WIFI_BT_PSA": {
+            "target.components_add"                    : ["SD"],
+            "sd.CRC_ENABLED"                           : 0,
             "sd.SPI_MOSI"                                  : "P12_0",
             "sd.SPI_MISO"                                  : "P12_1",
             "sd.SPI_CLK"                                   : "P12_2",
@@ -198,9 +201,13 @@
                                                              ]
         },
         "K64F": {
+            "target.components_add"                    : ["SD"],
+            "sd.CRC_ENABLED"                           : 0,
             "storage_filesystem.rbp_internal_size"     : "(2*4*1024)"
         },
         "K66F": {
+            "target.components_add"                    : ["SD"],
+            "sd.CRC_ENABLED"                           : 0,		
             "storage_filesystem.rbp_internal_size"     : "(2*4*1024)"
         },
         "KW24D": {
