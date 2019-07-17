@@ -164,14 +164,25 @@
                                                              ]
         },
         "CY8CPROTO_062_4343W": {
+            "target.bootloader_supported"                  : true,
+            "target.mbed_rom_start"                        : "0x10000000",
+            "target.mbed_rom_size"                         : "0x00200000",
+            "target.sectors"                               : [[268435456, 512]],     
+            "target.components_remove"                     : [ "SPM_MAILBOX", "SD", "RTX", "SOFTFP" ],
             "target.features_remove"                       : [ "BLE" ],
-            "storage_filesystem.internal_base_address"     : "0x1000D000",
-            "storage_filesystem.rbp_internal_size"         : "(2*4*1024)",
-            "update-client.application-details"            : "0x1000F000",
-            "mbed-bootloader.default-max-application-size" : "(MBED_ROM_START + MBED_ROM_SIZE - MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS - MBED_CONF_STORAGE_FILESYSTEM_RBP_INTERNAL_SIZE)",
-            "mbed-bootloader.bootloader-size"              : "(44*1024)",
+            "storage.storage_type"                         : "TDB_INTERNAL",			
+            "storage_tdb_internal.internal_base_address"   : "(MBED_ROM_START + 0x2000 + 1024*1024)",
+            "storage_tdb_internal.internal_size"           : "(24*1024)",   
+            "mbed-bootloader.default-max-application-size" : "(MBED_ROM_START + MBED_ROM_SIZE - 0x2000 - MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS - MBED_CONF_STORAGE_TDB_INTERNAL_INTERNAL_SIZE)",
+            "mbed-bootloader.bootloader-size"              : "(0x2000 + 40*1024)",
+            "mbed-bootloader.application-start-address"    : "(MBED_CONF_UPDATE_CLIENT_APPLICATION_DETAILS + MBED_BOOTLOADER_ACTIVE_HEADER_REGION_SIZE)",
             "platform.stdio-baud-rate"                     : 115200,
-            "target.hex_filename"                          : null,
+            "update-client.storage-address"                : "(MBED_CONF_STORAGE_TDB_INTERNAL_INTERNAL_BASE_ADDRESS + MBED_CONF_STORAGE_TDB_INTERNAL_INTERNAL_SIZE)",
+            "update-client.storage-size"                   : "((MBED_ROM_START + MBED_ROM_SIZE - MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS) * MBED_CONF_UPDATE_CLIENT_STORAGE_LOCATIONS)",
+            "update-client.storage-locations"              : 1,
+            "update-client.firmware-header-version"        : "2",
+            "update-client.application-details"            : "(MBED_ROM_START + 0x2000 + 40*1024)",
+            "target.extra_labels_remove"                   : [ "WHD", "4343W", "CYW43XXX" ],
             "target.device_has_remove"                     : [
                                                               "SERIAL_ASYNCH",
                                                               "SERIAL_FC",
@@ -188,8 +199,11 @@
                                                               "PWMOUT",
                                                               "ANALOGIN",
                                                               "ANALOGOUT",
-                                                              "I2C"
-                                                             ]
+                                                              "I2C",
+  											                  "I2CSLAVE",
+															  "SPI",
+															  "SPISLAVE"   
+                                                             ] 
         },		
         "CY8CKIT_062_WIFI_BT_PSA": {
             "target.components_add"                        : ["SD"],
