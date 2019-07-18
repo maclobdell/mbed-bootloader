@@ -95,7 +95,7 @@ bool readActiveFirmwareHeader(arm_uc_firmware_details_t *details)
  */
 int checkActiveApplication(arm_uc_firmware_details_t *details)
 {
-    tr_debug("checkActiveApplication");
+    tr_info("checkActiveApplication");
 
     int result = RESULT_ERROR;
 
@@ -107,10 +107,10 @@ int checkActiveApplication(arm_uc_firmware_details_t *details)
         if ((headerValid) && (details->size > 0)) {
             uint32_t appStart = MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS;
 
-            tr_debug("header start: 0x%08" PRIX32,
+            tr_info("header start: 0x%08" PRIX32,
                      (uint32_t) FIRMWARE_METADATA_HEADER_ADDRESS);
-            tr_debug("app start: 0x%08" PRIX32, appStart);
-            tr_debug("app size: %" PRIu64, details->size);
+            tr_info("app start: 0x%08" PRIX32, appStart);
+            tr_info("app size: %" PRIu64, details->size);
 
             /* initialize hashing facility */
             mbedtls_sha256_context mbedtls_ctx;
