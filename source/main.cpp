@@ -138,30 +138,26 @@ int main(void)
     /* Default to booting application */
     bool canForward = true;
 
-    tr_info("ucp_result.error: %d" PRIu32, ucp_result.error);
     /* check UCP initialization result */
     if (ucp_result.error == ERR_NONE) {
-
-		 tr_trace("ucp_result.error == ERR_NONE\r\n");
-
         /* Initialize internal flash */
-     //   bool storageResult = activeStorageInit();
-     //
-     //   tr_info("storageResult: %d" PRIu32, storageResult);
+        bool storageResult = activeStorageInit();
 
-     //   if (storageResult) {
-     //       /* Try to update firmware from journal */
-     //       canForward = upgradeApplicationFromStorage();
-    //	
-   	//        tr_info("canForward: %d" PRIu32, canForward);
-	//
-    //        /* deinit storage driver */
-    //        activeStorageDeinit();
-    //    }
+        if (storageResult) {
+
+            /* Try to update firmware from journal */
+            canForward = upgradeApplicationFromStorage();
+
+            /* deinit storage driver */
+            activeStorageDeinit();
+        }
     }
 
     /* forward control to ACTIVE application if it is deemed sane */
-  //  if (canForward) {
+    if (canForward) {
+		
+		tr_info("canForward is true \r\n");
+			
 #if defined(BOOTLOADER_POWER_CUT_TEST) && (BOOTLOADER_POWER_CUT_TEST == 1)
         power_cut_test_assert_state(POWER_CUT_TEST_STATE_END);
         wait(5);
@@ -179,7 +175,7 @@ int main(void)
         tr_info("Forwarding to application...\r\n");
 
         mbed_start_application(MBED_CONF_APP_APPLICATION_JUMP_ADDRESS);
-  //  }
+    }
 
     /* Reset bootCounter; this allows a user to reapply a new bootloader
        without having to power cycle the device.

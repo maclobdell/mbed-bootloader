@@ -31,8 +31,6 @@
 
 #include <inttypes.h>
 
-#define SHOW_PROGRESS_BAR 1
-
 bool activeStorageInit(void)
 {
     int rc = arm_uc_flashiap_init();
@@ -105,10 +103,8 @@ int checkActiveApplication(arm_uc_firmware_details_t *details)
         /* Read header and verify that it is valid */
         bool headerValid = readActiveFirmwareHeader(details);
 
-		tr_info("headerValid: %d" PRIu32, headerValid);
-		tr_info("details-size: %d" PRIu32, details->size);
-
-        //if ((headerValid) && (details->size > 0)) {
+        /* calculate hash if header is valid and slot is not empty */
+        if ((headerValid) && (details->size > 0)) {
             uint32_t appStart = MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS;
 
             tr_info("header start: 0x%08" PRIX32,
@@ -155,20 +151,24 @@ int checkActiveApplication(arm_uc_firmware_details_t *details)
             /* compare calculated hash with hash from header */
             int diff = memcmp(details->hash, SHA, SIZEOF_SHA256);
 
+             printSHA256(details->hash);
+             printSHA256(SHA);
+				
             if (diff == 0) {
                 result = RESULT_SUCCESS;
+			    tr_info("SHA Compare: Success\r\n");
             } else {
+			    tr_info("SHA Compare: FAIL\r\n");
                 printSHA256(details->hash);
                 printSHA256(SHA);
             }
-        //} else if ((headerValid) && (details->size == 0)) {
+        } else if ((headerValid) && (details->size == 0)) {
             /* header is valid but application size is 0 */
-        //    result = RESULT_EMPTY;
-        //}
+			tr_info("Header Valid, but application size is 0\r\n");
+            result = RESULT_EMPTY;
+        }
     }
 
-     //just do it
-     result = RESULT_SUCCESS;
     return result;
 }
 
@@ -384,7 +384,7 @@ bool writeActiveFirmware(uint32_t index, arm_uc_firmware_details_t *details)
 bool copyStoredApplication(uint32_t index,
                            arm_uc_firmware_details_t *details)
 {
-    tr_debug("copyStoredApplication");
+    tr_info("copyStoredApplication");
 
     bool result = false;
 
