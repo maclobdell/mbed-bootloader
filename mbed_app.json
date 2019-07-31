@@ -77,7 +77,7 @@
     },
     "macros": [
         "ARM_UC_USE_PAL_BLOCKDEVICE=1",
-        "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP_BLOCKDEVICE",
+        "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP",
         "MBED_BOOTLOADER_ACTIVE_HEADER_REGION_SIZE=1024"
     ],
     "target_overrides": {
@@ -85,103 +85,28 @@
             "platform.use-mpu"                         : false,
             "platform.stdio-baud-rate"                 : 115200,
             "platform.stdio-flush-at-exit"             : false,
-            "update-client.storage-address"            : "(1024*1024*64)",
-            "update-client.storage-size"               : "((MBED_ROM_START + MBED_ROM_SIZE - MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS) * MBED_CONF_UPDATE_CLIENT_STORAGE_LOCATIONS)",
             "update-client.storage-locations"          : 1,
-            "update-client.firmware-header-version"    : "2",
-            "storage.storage_type"                     : "FILESYSTEM",
-            "storage_filesystem.internal_base_address" : "(MBED_ROM_START + MBED_BOOTLOADER_SIZE)",
-            "update-client.application-details"        : "(MBED_CONF_STORAGE_FILESYSTEM_INTERNAL_BASE_ADDRESS + MBED_CONF_STORAGE_FILESYSTEM_RBP_INTERNAL_SIZE)",
-            "mbed-bootloader.application-start-address": "(MBED_CONF_UPDATE_CLIENT_APPLICATION_DETAILS + MBED_BOOTLOADER_ACTIVE_HEADER_REGION_SIZE)",
-            "target.extra_labels_remove"               : [ "WICED", "CORDIO", "PSA", "MBED_SPM" ]
-        },
-        "LPC55S69_NS": {
-            "target.components_remove"                     : [ "SPM_MAILBOX" ],
-            "target.features_remove"                       : [ "BLE" ],
-            "target.macros_remove"                         : ["MBED_FAULT_HANDLER_DISABLED"],
-            "storage_filesystem.internal_base_address"     : "0x94000",
-            "storage_filesystem.rbp_internal_size"         : "(15*1024)",
-            "update-client.application-details"            : "(MBED_ROM_START + MBED_BOOTLOADER_SIZE)",
-            "mbed-bootloader.default-max-application-size" : "(MBED_ROM_START + MBED_ROM_SIZE - MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS - MBED_CONF_STORAGE_FILESYSTEM_RBP_INTERNAL_SIZE)",
-            "target.secure_image_filename"                 : null,
-            "platform.stdio-baud-rate"                     : 115200,
-            "target.device_has_remove"                     : [
-                                                              "USTICKER",
-                                                              "SERIAL_ASYNCH",
-                                                              "SERIAL_FC",
-                                                              "PORTOUT",
-                                                              "PORTINOUT",
-                                                              "RTC",
-                                                              "I2C_ASYNCH",
-                                                              "I2CSLAVE",
-                                                              "SPI_ASYNCH",
-                                                              "STDIO_MESSAGES",
-                                                              "LPTICKER",
-                                                              "CRC",
-                                                              "PORTIN",
-                                                              "PWMOUT",
-                                                              "ANALOGIN",
-                                                              "ANALOGOUT",
-                                                              "I2C"
-                                                             ]
-        },
-        "CY8CKIT_062_BLE": {
-            "target.components_add"                        : ["SD"],
-            "sd.CRC_ENABLED"                           : 0,
-            "sd.SPI_MOSI"                                  : "P12_0",
-            "sd.SPI_MISO"                                  : "P12_1",
-            "sd.SPI_CLK"                                   : "P12_2",
-            "sd.SPI_CS"                                    : "P12_3",
-            "target.macros_add"                            : ["MBED_ROM_START=0x10002000", 
-                                                              "MBED_ROM_SIZE=0x000FE000"
-                                                             ],
-            "target.features_remove"                       : [ "BLE" ],
-            "storage_filesystem.internal_base_address"     : "0x100F8000",
-            "storage_filesystem.rbp_internal_size"         : "(2*4*1024)",
-            "update-client.application-details"            : "(MBED_ROM_START + MBED_BOOTLOADER_SIZE)",
-            "mbed-bootloader.default-max-application-size" : "(MBED_ROM_START + MBED_ROM_SIZE - MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS - MBED_CONF_STORAGE_FILESYSTEM_RBP_INTERNAL_SIZE)",
-            "mbed-bootloader.bootloader-size"              : "(40*1024)",
-            "platform.stdio-baud-rate"                     : 115200,
-            "target.hex_filename"                          : null,
-            "target.device_has_remove"                     : [
-                                                              "USTICKER",
-                                                              "SERIAL_ASYNCH",
-                                                              "SERIAL_FC",
-                                                              "PORTOUT",
-                                                              "PORTINOUT",
-                                                              "RTC",
-                                                              "I2C_ASYNCH",
-                                                              "SPI_ASYNCH",
-                                                              "STDIO_MESSAGES",
-                                                              "LPTICKER",
-                                                              "TRNG",
-                                                              "CRC",
-                                                              "PORTIN",
-                                                              "PWMOUT",
-                                                              "ANALOGIN",
-                                                              "ANALOGOUT",
-                                                              "I2C"
-                                                             ]
+            "update-client.firmware-header-version"    : "2"			
         },
         "CY8CPROTO_062_4343W": {
             "target.bootloader_supported"                  : true,
             "target.mbed_rom_start"                        : "0x10000000",
             "target.mbed_rom_size"                         : "0x00200000",
             "target.sectors"                               : [[268435456, 512]],
-			"target.restrict_size"                         : "0xC000",
             "target.components_remove"                     : [ "SPM_MAILBOX", "SD", "RTX", "SOFTFP" ],
-            "target.features_remove"                       : [ "BLE" ],
-            "storage_tdb_internal.internal_base_address"   : "0x10100000",
-            "storage_tdb_internal.internal_size"           : "0x6000",
+            "target.features_remove"                       : [ "BLE" ],			
+            "mbed-bootloader.bootloader-size"              : "0x00020000",
+			"target.restrict_size"                         : "0x00020000",
+            "update-client.application-details"            : "0x10020000",
+            "mbed-bootloader.application-start-address"    : "0x10020400",
             "storage.storage_type"                         : "TDB_INTERNAL",
-            "update-client.application-details"            : "0x1000C000",
-             "mbed-bootloader.max-application-size"        : "0xF3C00",
-            "update-client.storage-address"                : "0x10106000",
-            "update-client.storage-size"                   : "0xFA000", 
-            "mbed-bootloader.bootloader-size"              : "0xC000",
-            "mbed-bootloader.application-start-address"    : "0x1000C400",
+            "storage_tdb_internal.internal_base_address"   : "0x10100000",
+            "storage_tdb_internal.internal_size"           : "0x00040000",
+            "update-client.storage-address"                : "0x00140000",
+            "mbed-bootloader.max-application-size"         : "0x000E0C00",
+            "update-client.storage-size"                   : "0x000E1000", 
             "platform.stdio-baud-rate"                     : 115200,
-            "target.extra_labels_remove"                   : [ "WHD", "4343W", "CYW43XXX" ],
+            "target.extra_labels_remove"                   : [ "WICED", "CORDIO", "PSA", "MBED_SPM", "WHD", "4343W", "CYW43XXX" ],
             "target.device_has_remove"                     : [
                                                               "SERIAL_ASYNCH",
                                                               "SERIAL_FC",
@@ -203,24 +128,24 @@
 															  "SPI",
 															  "SPISLAVE"   
                                                              ] 
-        },		
-        "CY8CKIT_062_WIFI_BT_PSA": {
-            "target.components_add"                        : ["SD"],
-            "sd.SPI_MOSI"                                  : "P12_0",
-            "sd.SPI_MISO"                                  : "P12_1",
-            "sd.SPI_CLK"                                   : "P12_2",
-            "sd.SPI_CS"                                    : "P12_3",
-            "target.components_remove"                     : [ "SPM_MAILBOX" ],
+        },
+        "K66F": {
+            "update-client.storage-page"                   : 8,
+            "target.components_remove"                     : [ "SPM_MAILBOX", "SD", "RTX", "SOFTFP" ],
             "target.features_remove"                       : [ "BLE" ],
-            "storage_filesystem.internal_base_address"     : "(0x10040000+0xB8000)",
-            "storage_filesystem.rbp_internal_size"         : "(23*1024)",
-            "update-client.application-details"            : "(MBED_ROM_START + MBED_BOOTLOADER_SIZE)",
-            "mbed-bootloader.default-max-application-size" : "(MBED_ROM_START + MBED_ROM_SIZE - MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS - MBED_CONF_STORAGE_FILESYSTEM_RBP_INTERNAL_SIZE)",
-            "mbed-bootloader.bootloader-size"              : "(40*1024)",
-            "target.hex_filename"                          : null,
+            "mbed-bootloader.bootloader-size"              : "0x0000C000",
+			"target.restrict_size"                         : "0x0000C000",
+            "mbed-bootloader.application-start-address"    : "0x0000C400",
+            "update-client.application-details"            : "0x0000C000",
+            "storage.storage_type"                         : "TDB_INTERNAL",
+            "storage_tdb_internal.internal_base_address"   : "0x00100000",
+            "storage_tdb_internal.internal_size"           : "0x00018000",
+            "update-client.storage-address"                : "0x00118000",
+            "mbed-bootloader.max-application-size"         : "0x000E3C00",
+            "update-client.storage-size"                   : "0x000E3C00", 
             "platform.stdio-baud-rate"                     : 115200,
+            "target.extra_labels_remove"                   : [ "WICED", "CORDIO", "PSA", "MBED_SPM", "WHD", "4343W", "CYW43XXX" ],
             "target.device_has_remove"                     : [
-                                                              "USTICKER",
                                                               "SERIAL_ASYNCH",
                                                               "SERIAL_FC",
                                                               "PORTOUT",
@@ -230,94 +155,18 @@
                                                               "SPI_ASYNCH",
                                                               "STDIO_MESSAGES",
                                                               "LPTICKER",
+                                                              "TRNG",
                                                               "CRC",
                                                               "PORTIN",
                                                               "PWMOUT",
                                                               "ANALOGIN",
                                                               "ANALOGOUT",
-                                                              "I2C"
-                                                             ]
-        },
-        "K64F": {
-            "target.components_add"                    : ["SD"],
-            "sd.CRC_ENABLED"                           : 0,			
-            "storage_filesystem.rbp_internal_size"     : "(2*4*1024)"
-        },
-        "K66F": {
-            "target.components_add"                    : ["SD"],		
-            "storage_filesystem.rbp_internal_size"     : "(2*4*1024)"
-        },
-        "KW24D": {
-            "target.components_add"                    : ["SD"],		
-            "storage_filesystem.rbp_internal_size"     : "(2*2*1024)",
-            "sd.SPI_CS"                                : "PTC4",
-            "sd.SPI_MOSI"                              : "PTC6",
-            "sd.SPI_MISO"                              : "PTC7",
-            "sd.SPI_CLK"                               : "PTC5"
-        },
-        "NUCLEO_L476RG": {
-            "target.components_add"                    : ["SD"],		
-            "storage_filesystem.rbp_internal_size"     : "(2*2*1024)",
-            "mbed-bootloader.application-start-address": "(MBED_ROM_START+38*1024)"
-        },
-        "DISCO_L476VG": {
-            "target.components_add"                    : ["SD"],		
-            "storage_filesystem.rbp_internal_size"     : "(2*2*1024)",
-            "mbed-bootloader.application-start-address": "(MBED_ROM_START+38*1024)"
-        },
-        "DISCO_L475VG_IOT01A": {
-            "target.components_add"                    : ["SD"],
-            "sd.CRC_ENABLED"                           : 0,			
-            "storage_filesystem.rbp_internal_size"     : "(2*2*1024)",
-            "mbed-bootloader.application-start-address": "(MBED_ROM_START+38*1024)"
-        },
-        "NUCLEO_F411RE": {
-            "target.components_add"                    : ["SD"],		
-            "storage_filesystem.rbp_internal_size"     : "(2*16*1024)",
-            "sd.SPI_CS"                                : "PB_9",
-            "sd.SPI_MOSI"                              : "PC_3",
-            "sd.SPI_MISO"                              : "PC_2",
-            "sd.SPI_CLK"                               : "PC_7"
-        },
-        "NUCLEO_F429ZI": {
-            "target.components_add"                    : ["SD"],		
-            "storage_filesystem.rbp_internal_size"     : "(2*16*1024)"
-        },
-        "NUCLEO_F207ZG": {
-            "target.components_add"                    : ["SD"],		
-            "storage_filesystem.rbp_internal_size"     : "(2*16*1024)",
-            "sd.SPI_MOSI"                              : "PC_12",
-            "sd.SPI_MISO"                              : "PC_11",
-            "sd.SPI_CLK"                               : "PC_10",
-            "sd.SPI_CS"                                : "PA_15"
-        },
-        "UBLOX_EVK_ODIN_W2": {
-            "target.components_add"                    : ["SD"],		
-            "target.device_has_remove": ["EMAC"],
-            "storage_filesystem.rbp_internal_size"     : "(2*16*1024)"
-        },
-        "UBLOX_C030_U201": {
-            "target.components_add"                    : ["SD"],		
-            "storage_filesystem.rbp_internal_size"     : "(2*16*1024)"
-        },
-        "NRF52840_DK": {
-            "target.components_add"                    : ["SD"],
-            "sd.CRC_ENABLED"                           : 0,			
-            "storage_filesystem.internal_base_address" : "(1016*1024)",
-            "storage_filesystem.rbp_internal_size"     : "(2*4*1024)",
-            "update-client.application-details"        : "(236*1024)",
-            "mbed-bootloader.max-application-size"     : "MBED_CONF_STORAGE_FILESYSTEM_INTERNAL_BASE_ADDRESS - MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS",
-            "target.OUTPUT_EXT"                        : "hex",
-            "update-client.storage-address"            : "(1024*1024*1)",
-            "update-client.storage-size"               : "(1024*1024*1)",
-            "update-client.storage-locations"          : 1,
-            "update-client.storage-page"               : 1,
-            "sd.SPI_CS"                                : "A0",
-            "sd.SPI_MOSI"                              : "A1",
-            "sd.SPI_MISO"                              : "A2",
-            "sd.SPI_CLK"                               : "A3",
-            "target.features_remove"                   : ["CRYPTOCELL310"],
-            "target.macros_remove"                     : ["MBEDTLS_CONFIG_HW_SUPPORT"]
-        }
+                                                              "I2C",
+  											                  "I2CSLAVE",
+															  "SPI",
+															  "SPISLAVE"   
+                                                             ] 
+        }				
+
     }
 }
