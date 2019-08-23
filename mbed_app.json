@@ -76,7 +76,7 @@
         }
     },
     "macros": [
-        "ARM_UC_USE_PAL_BLOCKDEVICE=1",
+        "ARM_UC_USE_PAL_BLOCKDEVICE=0",
         "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP",
         "MBED_BOOTLOADER_ACTIVE_HEADER_REGION_SIZE=1024"
     ],
@@ -102,7 +102,7 @@
             "storage.storage_type"                         : "TDB_INTERNAL",
             "storage_tdb_internal.internal_base_address"   : "0x100F0000",
             "storage_tdb_internal.internal_size"           : "0x00020000",
-            "update-client.storage-address"                : "0x00110000",
+            "update-client.storage-address"                : "0x10110000",
             "mbed-bootloader.max-application-size"         : "0x000F0000",
             "update-client.storage-size"                   : "0x000F0000", 
             "platform.stdio-baud-rate"                     : 115200,
