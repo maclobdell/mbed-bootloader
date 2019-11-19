@@ -93,6 +93,25 @@
         },
         "NUCLEO_L073RZ": {
             "target.boot-stack-size"                   : "1024"
-        }
+        },
+		"CY8CPROTO_062_4343W": {
+            "target.bootloader_supported"                  : true,
+            "target.mbed_rom_start"                        : "0x10000000",			
+            "target.mbed_rom_size"                         : "0x00200000",
+            "target.sectors"                               : [[268435456, 512]],
+            "target.components_remove"                     : ["RTX", "SOFTFP" ],	
+            "target.features_remove"                       : [ "BLE" ],				
+			"target.restrict_size"                         : "0x0000C000",
+            "update-client.application-details"            : "0x1000C000",
+            "mbed-bootloader.application-start-address"    : "0x1000C400",
+            "storage.storage_type"                         : "TDB_INTERNAL",
+            "storage_tdb_internal.internal_base_address"   : "0x100F0000",
+            "storage_tdb_internal.internal_size"           : "0x00020000",
+            "update-client.storage-address"                : "0x00110000",
+            "mbed-bootloader.max-application-size"         : "0x000F0000",
+            "update-client.storage-size"                   : "0x000F0000", 
+            "target.extra_labels_remove"                   : [ "PSA", "WHD", "4343W", "CYW43XXX", "CORDIO"],
+			"target.macros_remove"                         : ["CYBSP_WIFI_CAPABLE"]
+		}
     }
 }
