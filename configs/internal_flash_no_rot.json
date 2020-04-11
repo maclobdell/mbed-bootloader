@@ -72,7 +72,8 @@
             "help": "The size of the area of flash reserved for kvstore, it neeeds to be even number of flash sectors",
             "macro_name": "KVSTORE_SIZE",
             "required": true
-        }
+        },
+        
     },
     "macros": [
         "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP",
@@ -128,6 +129,25 @@
             "target.restrict_size"             : "0x20000",
             "mbed-bootloader.bootloader-size"  : "(128*1024)",
             "update-client.application-details": "(MBED_ROM_START + MBED_BOOTLOADER_SIZE + 128*1024)"
-        }
+        },
+        "CY8CPROTO_062_4343W": {
+            "mbed-trace.enable"                         : true,
+            "mbed-bootloader.bootloader-size"              : "0x0000C000",
+            "kvstore-size"                                 : "0x00020000",
+            "target.restrict_size"                         : "0x0000C000",          
+            "mbed-bootloader.application-start-address"    : "0x1000C400",
+            "mbed-bootloader.max-application-size"         : "0x000F0000",
+            "update-client.application-details"            : "0x10110000",
+            "update-client.storage-address"                : "0x00110000",
+            "update-client.storage-size"                   : "0x000F0000", 
+            "target.components_remove"                     : ["RTX", "SOFTFP", "WHD", "QSPIF" ],	
+            "target.features_remove"                       : [ "BLE" ],				
+            "target.extra_labels_remove"                   : [ "PSA", "WHD", "4343W", "CYW43XXX", "CORDIO"],
+			      "target.macros_remove"                         : ["CYBSP_WIFI_CAPABLE"],
+            "target.bootloader_supported"                  : true,
+            "target.mbed_rom_start"                        : "0x10000000",			
+            "target.mbed_rom_size"                         : "0x00200000",
+            "target.sectors"                               : [[268435456, 512]]
+		   }
     }
 }
