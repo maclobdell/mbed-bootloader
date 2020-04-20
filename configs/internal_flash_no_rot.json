@@ -22,7 +22,8 @@
                  "kv-config",
                  "kv-global-api",
                  "kv-map",
-                 "device_key"
+                 "device_key",
+                 "mbed-trace"
     ],
     "config": {
         "documentation": {
@@ -72,7 +73,7 @@
             "help": "The size of the area of flash reserved for kvstore, it neeeds to be even number of flash sectors",
             "macro_name": "KVSTORE_SIZE",
             "required": true
-        },
+        }
         
     },
     "macros": [
