@@ -138,7 +138,7 @@
             "target.restrict_size"                         : "0x0000C000",          
             "mbed-bootloader.application-start-address"    : "0x1000C400",
             "mbed-bootloader.max-application-size"         : "0x000F0000",
-            "update-client.application-details"            : "0x10110000",
+            "update-client.application-details"            : "0x1000C000",
             "update-client.storage-address"                : "0x00110000",
             "update-client.storage-size"                   : "0x000F0000", 
             "target.components_remove"                     : ["RTX", "SOFTFP", "WHD", "QSPIF" ],	
