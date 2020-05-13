@@ -94,6 +94,10 @@ int main(void)
 
         /* forward control to ACTIVE application if it is deemed sane */
         boot_debug("booting...\r\n\r\n");
+
+        //wait for serial data to flush through
+        ThisThread::sleep_for(MBED_CONF_MBED_BOOTLOADER_STARTUP_DELAY);
+
         mbed_start_application(MBED_CONF_APP_APPLICATION_JUMP_ADDRESS);
     }
 

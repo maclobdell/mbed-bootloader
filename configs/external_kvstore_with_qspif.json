@@ -6,6 +6,7 @@
                  "storage_filesystem",
                  "SecureStore",
                  "storage_tdb_internal",
+                 "storage_tdb_external",
                  "mbed-bootloader",
                  "mbedtls",
                  "system-storage",
@@ -115,6 +116,32 @@
         "DISCO_L496AG": {
             "target.restrict_size"           : "0x9000",
             "mbed-bootloader.bootloader-size": "(36*1024)"
+        },
+        "CY8CPROTO_062_4343W": {
+            "storage.storage_type"                         : "TDB_EXTERNAL",
+            "target.restrict_size"                         : "0x20000",
+            "mbed-bootloader.application-start-address"    : "0x10020400",
+            "mbed-bootloader.max-application-size"         : "0x001C0000",
+            "mbed-bootloader.startup-delay"                : 5000,
+            "mbed-bootloader.serial-free"                  : true,
+            "update-client.application-details"            : "0x10020000",
+            "update-client.storage-address"                : "0x00000000",
+            "update-client.storage-size"                   : "0x001C0000",
+            "update-client.storage-page"                   : 512,
+            "storage_tdb_external.internal_base_address"   : "0x101E0000",
+            "storage_tdb_external.rbp_internal_size"       : "0x10000",
+            "storage_tdb_external.external_base_address"   : "0x00200000",
+            "storage_tdb_external.external_size"           : "4*0x40000",
+            "storage_tdb_external.blockdevice"             : "QSPIF",
+            "target.components_add"                        : ["QSPIF"],
+            "target.components_remove"                     : ["RTX", "SOFTFP", "WHD"],
+            "target.features_remove"                       : [ "BLE" ],
+            "target.extra_labels_remove"                   : [ "PSA", "WHD", "4343W", "CYW43XXX", "CORDIO"],
+            "target.macros_remove"                         : ["CYBSP_WIFI_CAPABLE"],
+            "target.bootloader_supported"                  : true,
+            "target.mbed_rom_start"                        : "0x10000000",
+            "target.mbed_rom_size"                         : "0x00200000",
+            "target.sectors"                               : [[268435456, 512]]
         }
     }
 }
